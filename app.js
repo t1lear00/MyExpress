@@ -10,11 +10,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
-  
-  app.listen(3000)
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -24,6 +20,38 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.get('/example',
+    function(request,response){
+        response.send('I am example');
+        console.log('I am example');
+    }
+);
+
+app.get('/example/:name',
+    function(request,response){
+        response.send('Hello '+request.params.name);
+    }
+);
+
+app.get('/example2/:firstName/:lastName',
+    function(request, response){
+        response.send('Hello '+request.params.firstName+" "+request.params.lastName);
+    }
+);
+
+app.get('/example2/:firstName&:lastName',
+    function(request, response){
+       response.send('Hello '+request.params.firstName+" "+request.params.lastName);
+    }
+);
+
+app.post('/',
+    function(request,response){
+        response.send(request.body);
+        console.log(request.body);
+    }
+);
 
 
 
